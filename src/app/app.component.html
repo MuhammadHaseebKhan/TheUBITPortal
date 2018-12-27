@@ -1,20 +1,113 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="createCoursePage">
+<h2>Create Course</h2>
+<form [formGroup]='createCourseForm' class="createCourseForm" (ngSubmit)="submitCreateCourse()">
+  <input matInput class="createCourseInputField" type="text" formControlName='courseTitle' placeholder="Course Tilte">
+    
+  <input matInput class="createCourseInputField" type="number" formControlName='courseNumber' placeholder="Course Number">
+    
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='select class' formControlName='programName'>
+      <mat-option (click)="checkProgramme()" value="{{option.class}}" *ngFor="let option of programme">{{option.class}}</mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+    
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selectedSemester" placeholder='select semester' formControlName='semester'>
+      <mat-option value="{{semester}}" *ngFor="let semester of semesters">{{semester}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <button type="submit" class="submitCreateCourseBtn" (click)="submitCreateCourse()" [disabled]="!createCourseForm.valid">submit</button>
+</form>
 
+<h2>Create Teacher</h2>
+<form [formGroup]='createTeacherForm' class="createCourseForm" (ngSubmit)="submitCreateTeacher()">
+  <input matInput class="createCourseInputField" type="text" formControlName='name' placeholder="Name">
+    
+  <input matInput class="createCourseInputField" type="text" formControlName='fatherName' placeholder="Father Name">
+    
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Designation' formControlName='designation'>
+      <mat-option value="{{designation}}" *ngFor="let designation of designations">{{designation}}</mat-option>
+    </mat-select>
+  </mat-form-field> <br>
+
+  <input matInput class="createCourseInputField" type="text" formControlName='qualification' placeholder="Qualification">
+
+  <input matInput class="createCourseInputField" type="number" formControlName='contact' placeholder="Contact">
+  
+  <button type="submit" class="submitCreateCourseBtn" (click)="submitCreateTeacher()" [disabled]="!createTeacherForm.valid">submit</button>
+</form>
+
+<!-- <h2>Time Table</h2>
+<form [formGroup]='createTimeTableForm' class="createCourseForm" (ngSubmit)="submitCreateTimeTable()">
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Day' formControlName='days'>
+        <mat-option value="{{day}}" *ngFor="let day of days">{{day}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Shift' formControlName='shift'>
+      <mat-option value="{{Morning}}">Morning</mat-option>
+      <mat-option value="{{Evening}}">Evening</mat-option>
+    </mat-select>
+  </mat-form-field>
+    
+  <mat-form-field>
+    <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Programme' formControlName='Programme'>
+        <mat-option (click)="checkProgrammeForTimeTable()" value="{{option.class}}" *ngFor="let option of programme">{{option.class}}</mat-option>
+    </mat-select>
+  </mat-form-field> 
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Section' formControlName='section'>
+        <mat-option value="{{Section A}}">Section A</mat-option>
+        <mat-option value="{{Section B}}">Section B</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Semester' formControlName='semester'>
+        <mat-option value="{{semester}}" *ngFor="let semester of semesterForTimeTable">{{semester}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Timings' formControlName='timing'>
+        <mat-option value="{{3:00 pm - 5:00 pm}}">3:00 pm - 5:00 pm</mat-option>
+        <mat-option value="{{5:00 pm - 7:00 pm}}">5:00 pm - 7:00 pm</mat-option>
+        <mat-option value="{{7:00 pm - 8:30 pm}}">7:00 pm - 8:30 pm</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Course Credit Hours' formControlName='courseCreditHours'>
+        <mat-option value="{{2+1}}">2+1</mat-option>
+        <mat-option value="{{3+0}}">3+0</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Theory Teacher' formControlName='theoryTeacher'>
+        <mat-option value="{{Sir Saeed}}">Sir Saeed</mat-option>
+        <mat-option value="{{Sir Nadeem}}">Sir Nadeem</mat-option>
+        <mat-option value="{{Sir Sadiq}}">Sir Sadiq</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Designation' formControlName='designation'>
+        <mat-option value="{{designation}}" *ngFor="let designation of designations">{{designation}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select class="createCourseDropdown" [(value)]="selected" placeholder='Designation' formControlName='designation'>
+        <mat-option value="{{designation}}" *ngFor="let designation of designations">{{designation}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+  
+  <button type="submit" class="submitCreateCourseBtn" (click)="submitCreateTimeTable()" [disabled]="!submitCreateTimeTable.valid">submit</button>
+</form> -->
+</div>

@@ -1,0 +1,40 @@
+.createCoursePage{
+  padding-top: 50px;
+}
+.createCoursePage > h2{
+  text-align: center;
+}
+.createCourseForm{
+  border: 1px solid #666666;
+  border-radius: 10px;
+  margin: auto;
+  width: 30%;
+  padding: 20px 20px;
+}
+.createCourseInputField{
+  border-bottom: 1px solid #666666;
+  width: 100%;
+  float: left;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+.createCourseDropdown{
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.mat-form-field-infix{
+  width: 270px !important;
+}
+.submitCreateCourseBtn{
+  display: block;
+  border: 1px solid black;
+  background: white;
+  color: black;
+  outline: none;
+  padding: 5px 18px;
+  margin: auto;
+}
+button[disabled], html input[disabled]{
+  background: #dddddd;
+}
